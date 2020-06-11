@@ -23,7 +23,7 @@ export default function Chat(props) {
 		<div style={{ border: 'solid', padding: '1em' }}>
 			<h2>Chat</h2>
 			<hr />
-			<ul>
+			<ul className='messages'>
 				{room.messages.map((msg, index) => {
 					if (msg.name === '') {
 						return (

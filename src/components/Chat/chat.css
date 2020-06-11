@@ -1,13 +1,13 @@
-ul {
+.messages {
 	padding-left: 0;
 }
 
-li {
+.messages li {
 	padding: 0.5em;
 	list-style: none;
 	background-color: white;
 }
 
-li:nth-child(odd) {
+.messages li:nth-child(odd) {
 	background-color: lightgray;
 }

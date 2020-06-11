@@ -15,24 +15,26 @@ function App() {
 
 	useEffect(() => {
 		// Notify players of a new connection
-		socket.on('userConnected', (name) => {
+		socket.on('userConnected', (data) => {
 			setRoom((prev) => ({
 				...prev,
 				messages: prev.messages.concat({
 					name: '',
-					body: `${name} has connected.`,
+					body: `${data.name} has connected.`,
 				}),
+				players: data.players,
 			}));
 		});
 
 		// Notify players of a new disconnection
-		socket.on('userDisconnected', (name) => {
+		socket.on('userDisconnected', (data) => {
 			setRoom((prev) => ({
 				...prev,
 				messages: prev.messages.concat({
 					name: '',
-					body: `${name} has disconnected.`,
+					body: `${data.name} has disconnected.`,
 				}),
+				players: data.updatedPlayers,
 			}));
 		});
 		socket.on('message', (message) => {

@@ -1,0 +1,9 @@
+.players-list div {
+	margin: 1em 0em;
+	padding: 1em;
+
+	text-align: center;
+	font-size: 1.2rem;
+
+	border-right: solid black;
+}
