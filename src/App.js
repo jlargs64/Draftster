@@ -57,19 +57,11 @@ function App() {
 		};
 		// Send room data to server
 		socket.emit('createRoom', data, (response) => {
-			// Check if room exists or not
-			if (response.roomExists === true) {
-				alert('Room id already in use, choose a new room id.');
-			}
-			if (response.nameValid === false) {
-				alert(
-					"That name is not valid. Your name can't be empty or include a dash."
-				);
-			}
-			if (response.roomExists === false && response.nameValid === true) {
-				// Room does not exist so continue
+			// Show an error if something went wrong
+			if (response.hasOwnProperty('error')) {
+				alert(response.error);
+			} else {
 				setIsLoggedin(true);
-
 				setRoom({ ...response.room, name: name });
 			}
 		});
@@ -81,30 +73,19 @@ function App() {
 			roomId: roomId,
 		};
 		socket.emit('joinRoom', data, (response) => {
-			//Check if room exists
-			if (response.roomExists === false) {
-				alert('No room exists with that id, so you should create it!');
-			}
-			// Check if name is available
-			if (response.nameInUse === true) {
-				alert(
-					'That name is already in use in that room, please choose another.'
-				);
-			}
-			if (response.nameValid === false) {
-				alert(
-					"That name is not valid. Your name can't be empty or include a dash."
-				);
-			}
-			if (
-				response.nameInUse === false &&
-				response.nameValid === true &&
-				response.roomExists === true
-			) {
+			// Show an error if something went wrong
+			if (response.hasOwnProperty('error')) {
+				alert(response.error);
+			} else {
 				setIsLoggedin(true);
 				setRoom({ ...response.room, name: name });
 			}
 		});
+	}
+
+	function lockRoom() {
+		socket.emit('lockRoom');
+		setRoom((prev) => ({ ...prev, inProgress: true }));
 	}
 
 	function sendMessage(body) {
