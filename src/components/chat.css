@@ -8,6 +8,6 @@ li {
 	background-color: white;
 }
 
-li:nth-child(2) {
-	background-color: lightgrey;
+li:nth-child(odd) {
+	background-color: lightgray;
 }

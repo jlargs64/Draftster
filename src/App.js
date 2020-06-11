@@ -15,12 +15,46 @@ function App() {
 		});
 	}, []);
 
-	function createRoom(roomId) {
-		socket.emit('createRoom', roomId);
+	function createRoom(name, roomId) {
+		// Room data to send to server
+		const data = {
+			name: name,
+			roomId: roomId,
+		};
+		// Send room data to server
+		socket.emit('createRoom', data, (response) => {
+			// Check if room exists or not
+			if (response.roomExists === true) {
+				alert('Room id already in use, choose a new room id.');
+			} else {
+				// Room does not exist so continue
+				setIsLoggedin(true);
+				setLoginInfo({ name: name, roomId: roomId });
+			}
+		});
 	}
 
-	function joinRoom(roomId) {
-		socket.emit('joinRoom', roomId);
+	function joinRoom(name, roomId) {
+		const data = {
+			name: name,
+			roomId: roomId,
+		};
+		socket.emit('joinRoom', data, (response) => {
+			//Check if room exists
+			if (response.roomExists === false) {
+				alert('No room exists with that id, so you should create it!');
+			}
+			// Check if name is available
+			if (response.nameInUse === true) {
+				alert(
+					'That name is already in use in that room, please choose another.'
+				);
+			} else {
+				setIsLoggedin(true);
+				setLoginInfo({ name: name, roomId: roomId });
+				setMessages(response.messages);
+			}
+		});
 	}
 
 	function sendMessage(body) {
@@ -34,14 +68,7 @@ function App() {
 	}
 
 	if (!isLoggedIn) {
-		return (
-			<Home
-				createRoom={createRoom}
-				joinRoom={joinRoom}
-				setLogin={setIsLoggedin}
-				setLoginInfo={setLoginInfo}
-			/>
-		);
+		return <Home createRoom={createRoom} joinRoom={joinRoom} />;
 	} else {
 		return (
 			<Room
