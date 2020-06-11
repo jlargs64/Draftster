@@ -9,17 +9,23 @@ import Draft from './Draft';
 import Chat from './Chat';
 
 export default function Room(props) {
-	const messages = props.messages;
+	const room = props.room;
 	const sendMessage = props.sendMessage;
 
 	return (
 		<Container fluid style={{ paddingTop: '1em' }}>
 			<Row>
+				<h1>Room: {room.id}</h1>
+			</Row>
+			<Row>
+				<h2>Players</h2>
+			</Row>
+			<Row>
 				<Col>
 					<Draft />
 				</Col>
 				<Col>
-					<Chat messages={messages} sendMessage={sendMessage} />
+					<Chat room={room} sendMessage={sendMessage} />
 				</Col>
 			</Row>
 		</Container>
@@ -27,6 +33,6 @@ export default function Room(props) {
 }
 
 Room.propTypes = {
-	messages: PropTypes.array.isRequired,
+	room: PropTypes.object.isRequired,
 	sendMessage: PropTypes.func.isRequired,
 };

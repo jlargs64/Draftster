@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import './chat.css';
 
 export default function Chat(props) {
-	const messages = props.messages;
+	const room = props.room;
 	const sendMessage = props.sendMessage;
 	const [draftMessage, setDraftMessage] = useState('');
 
@@ -24,7 +24,7 @@ export default function Chat(props) {
 			<h2>Chat</h2>
 			<hr />
 			<ul>
-				{messages.map((msg, index) => {
+				{room.messages.map((msg, index) => {
 					if (msg.name === '') {
 						return (
 							<li key={index}>
@@ -42,8 +42,8 @@ export default function Chat(props) {
 				})}
 			</ul>
 			<Form>
-				<Form.Row style={{ padding: '0.5em 0em' }}>
-					<Col sm={8}>
+				<Form.Row style={{ padding: '0.5em 0.5em' }}>
+					<Col sm={8} style={{ padding: '0em 0.5em' }}>
 						<Form.Control
 							type='text'
 							placeholder='Enter message'
@@ -51,7 +51,7 @@ export default function Chat(props) {
 							onChange={(e) => setDraftMessage(e.target.value)}
 						/>
 					</Col>
-					<Col sm={4}>
+					<Col sm={4} style={{ padding: '0em 0.5em' }}>
 						<Button
 							variant='primary'
 							type='submit'
@@ -68,6 +68,6 @@ export default function Chat(props) {
 }
 
 Chat.propTypes = {
-	messages: PropTypes.array.isRequired,
+	room: PropTypes.object.isRequired,
 	sendMessage: PropTypes.func.isRequired,
 };

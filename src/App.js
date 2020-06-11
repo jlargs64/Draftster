@@ -6,12 +6,41 @@ import Room from './components/Room';
 
 function App() {
 	const [isLoggedIn, setIsLoggedin] = useState(false);
-	const [loginInfo, setLoginInfo] = useState({});
-	const [messages, setMessages] = useState([]);
+	const [room, setRoom] = useState({
+		name: '',
+		id: '',
+		players: [],
+		messages: [],
+	});
 
 	useEffect(() => {
+		// Notify players of a new connection
+		socket.on('userConnected', (name) => {
+			setRoom((prev) => ({
+				...prev,
+				messages: prev.messages.concat({
+					name: '',
+					body: `${name} has connected.`,
+				}),
+			}));
+		});
+
+		// Notify players of a new disconnection
+		socket.on('userDisconnected', (name) => {
+			setRoom((prev) => ({
+				...prev,
+				messages: prev.messages.concat({
+					name: '',
+					body: `${name} has disconnected.`,
+				}),
+			}));
+		});
 		socket.on('message', (message) => {
-			setMessages((prev) => prev.concat(message));
+			// Update messages on new ones
+			setRoom((prev) => ({
+				...prev,
+				messages: prev.messages.concat(message),
+			}));
 		});
 	}, []);
 
@@ -26,10 +55,22 @@ function App() {
 			// Check if room exists or not
 			if (response.roomExists === true) {
 				alert('Room id already in use, choose a new room id.');
-			} else {
+			}
+			if (response.nameValid === false) {
+				alert(
+					"That name is not valid. Your name can't be empty or include a dash."
+				);
+			}
+			if (response.roomExists === false && response.nameValid === true) {
 				// Room does not exist so continue
 				setIsLoggedin(true);
-				setLoginInfo({ name: name, roomId: roomId });
+
+				setRoom((prev) => ({
+					...prev,
+					name: name,
+					id: roomId,
+					players: [name],
+				}));
 			}
 		});
 	}
@@ -49,34 +90,45 @@ function App() {
 				alert(
 					'That name is already in use in that room, please choose another.'
 				);
-			} else {
+			}
+			if (response.nameValid === false) {
+				alert(
+					"That name is not valid. Your name can't be empty or include a dash."
+				);
+			}
+			if (
+				response.nameInUse === false &&
+				response.nameValid === true &&
+				response.roomExists === true
+			) {
 				setIsLoggedin(true);
-				setLoginInfo({ name: name, roomId: roomId });
-				setMessages(response.messages);
+				setRoom((prev) => ({
+					...prev,
+					name: name,
+					id: roomId,
+					players: response.players,
+					messages: response.messages,
+				}));
 			}
 		});
 	}
 
 	function sendMessage(body) {
-		const message = { name: loginInfo.name, body: body };
-		const data = {
-			roomId: loginInfo.roomId,
-			message: message,
-		};
-		setMessages((prev) => prev.concat(message));
-		socket.emit('message', data);
+		if (isLoggedIn) {
+			const message = { name: room.name, body: body };
+			const data = {
+				roomId: room.id,
+				message: message,
+			};
+
+			socket.emit('message', data);
+		}
 	}
 
 	if (!isLoggedIn) {
 		return <Home createRoom={createRoom} joinRoom={joinRoom} />;
 	} else {
-		return (
-			<Room
-				loginInfo={loginInfo}
-				messages={messages}
-				sendMessage={sendMessage}
-			/>
-		);
+		return <Room room={room} sendMessage={sendMessage} />;
 	}
 }
 
