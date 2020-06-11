@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 //import Table from 'react-bootstrap/Table';
 
 export default function MyTeam(props) {
-	const room = props.room;
+	//const room = props.room;
 
 	return (
-		<div style={{ border: 'solid', padding: '1em' }}>
+		<div
+			style={{
+				border: 'solid',
+				padding: '1em',
+				height: '100%',
+			}}
+		>
 			<h2>My Team</h2>
 			<hr />
 			{/* <Table striped bordered hover>

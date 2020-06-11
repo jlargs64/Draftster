@@ -20,7 +20,7 @@ export default function Chat(props) {
 	}
 
 	return (
-		<div style={{ border: 'solid', padding: '1em' }}>
+		<div style={{ border: 'solid', padding: '1em', height: '100%' }}>
 			<h2>Chat</h2>
 			<hr />
 			<ul className='messages'>

@@ -14,22 +14,20 @@ import MyTeam from '../MyTeam';
 export default function Room(props) {
 	const room = props.room;
 	const sendMessage = props.sendMessage;
+	const lockRoom = props.lockRoom;
 
 	return (
 		<Container fluid style={{ padding: '1em' }}>
 			<Row>
 				<Col>
 					<h1>Room: {room.id}</h1>
-					<h2>Players:</h2>
-					<Row className='players-list'>
-						<ul className='players-list'>
-							{room.players.map((player, index) => (
-								<li key={index}>{player}</li>
-							))}
-						</ul>
-					</Row>
 					<Row className='justify-content-center' style={{ padding: '1em' }}>
-						<Button variant='primary' block>
+						<Button
+							variant='primary'
+							onClick={lockRoom}
+							size='lg'
+							disabled={room.inProgress}
+						>
 							Start Draft
 						</Button>
 					</Row>
@@ -47,12 +45,12 @@ export default function Room(props) {
 						justifyContent: 'space-evenly',
 					}}
 				>
-					<Row>
+					<Row style={{ height: '50%' }}>
 						<Col>
 							<MyTeam room={room} />
 						</Col>
 					</Row>
-					<Row>
+					<Row style={{ height: '50%' }}>
 						<Col>
 							<Chat room={room} sendMessage={sendMessage} />
 						</Col>
@@ -66,4 +64,5 @@ export default function Room(props) {
 Room.propTypes = {
 	room: PropTypes.object.isRequired,
 	sendMessage: PropTypes.func.isRequired,
+	lockRoom: PropTypes.func.isRequired,
 };

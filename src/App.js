@@ -13,6 +13,7 @@ function App() {
 		messages: [],
 		availablePicks: [],
 		currentTurn: 0,
+		currentRound: 1,
 		inProgress: false,
 	});
 
@@ -103,7 +104,7 @@ function App() {
 	if (!isLoggedIn) {
 		return <Home createRoom={createRoom} joinRoom={joinRoom} />;
 	} else {
-		return <Room room={room} sendMessage={sendMessage} />;
+		return <Room room={room} sendMessage={sendMessage} lockRoom={lockRoom} />;
 	}
 }
 

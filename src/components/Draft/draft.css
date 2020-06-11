@@ -1,0 +1,35 @@
+.draft-order {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: left;
+	align-items: center;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.draft-square {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+
+	padding: 1em;
+	margin: 1em;
+	min-width: 100px;
+	width: 100px;
+	height: 100px;
+}
+
+.draft-time-square {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: flex-start;
+
+	padding: 1em;
+	margin: 1em;
+	min-width: 120px;
+	width: 120px;
+	height: 100px;
+	border-right: solid black;
+}
