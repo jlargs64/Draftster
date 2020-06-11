@@ -11,6 +11,9 @@ function App() {
 		id: '',
 		players: [],
 		messages: [],
+		availablePicks: [],
+		currentTurn: 0,
+		inProgress: false,
 	});
 
 	useEffect(() => {
@@ -67,12 +70,7 @@ function App() {
 				// Room does not exist so continue
 				setIsLoggedin(true);
 
-				setRoom((prev) => ({
-					...prev,
-					name: name,
-					id: roomId,
-					players: [name],
-				}));
+				setRoom({ ...response.room, name: name });
 			}
 		});
 	}
@@ -104,13 +102,7 @@ function App() {
 				response.roomExists === true
 			) {
 				setIsLoggedin(true);
-				setRoom((prev) => ({
-					...prev,
-					name: name,
-					id: roomId,
-					players: response.players,
-					messages: response.messages,
-				}));
+				setRoom({ ...response.room, name: name });
 			}
 		});
 	}

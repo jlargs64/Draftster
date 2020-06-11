@@ -33,7 +33,7 @@ export default function Home(props) {
 					<h1>Draftster</h1>
 				</Row>
 				<Row className='mx-auto justify-content-center'>
-					<Card style={{ padding: '1em' }}>
+					<Card style={{ padding: '1em', width: '70%' }}>
 						<h1 className='text-center'>Play Now!</h1>
 						<Form>
 							<Form.Group>

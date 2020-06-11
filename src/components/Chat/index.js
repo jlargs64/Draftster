@@ -35,7 +35,7 @@ export default function Chat(props) {
 						);
 					}
 					return (
-						<li key={index}>
+						<li key={index} style={{ wordWrap: 'break-word' }}>
 							<strong>{msg.name}:</strong> {msg.body}
 						</li>
 					);

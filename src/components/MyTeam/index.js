@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
+//import Table from 'react-bootstrap/Table';
 
-export default function Draft(props) {
+export default function MyTeam(props) {
 	const room = props.room;
 
 	return (
 		<div style={{ border: 'solid', padding: '1em' }}>
-			<h2>Draft</h2>
+			<h2>My Team</h2>
 			<hr />
-			<Table striped bordered hover>
+			{/* <Table striped bordered hover>
 				<thead>
 					<tr>
 						<th>Rank</th>
 						<th>Symbol</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,19 +22,14 @@ export default function Draft(props) {
 						<tr key={index}>
 							<td>{index + 1}</td>
 							<td>{stock}</td>
-							<td>
-								<Button variant='success' block>
-									Pick
-								</Button>
-							</td>
 						</tr>
 					))}
 				</tbody>
-			</Table>
+			</Table> */}
 		</div>
 	);
 }
 
-Draft.propTypes = {
+MyTeam.propTypes = {
 	room: PropTypes.object.isRequired,
 };

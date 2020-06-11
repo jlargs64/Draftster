@@ -1,9 +1,13 @@
-.players-list div {
-	margin: 1em 0em;
-	padding: 1em;
+.players-list {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-evenly;
 
-	text-align: center;
-	font-size: 1.2rem;
+	list-style: none;
+	padding-left: 0;
+	font-size: larger;
+}
 
-	border-right: solid black;
+.players-list li {
+	margin-right: 10px;
 }
