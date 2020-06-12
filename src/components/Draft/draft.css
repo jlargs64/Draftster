@@ -18,6 +18,11 @@
 	min-width: 100px;
 	width: 100px;
 	height: 100px;
+	background-color: lightgray;
+}
+
+.active {
+	background-color: gray;
 }
 
 .draft-time-square {
