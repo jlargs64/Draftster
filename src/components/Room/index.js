@@ -17,8 +17,6 @@ export default function Room(props) {
 	const lockRoom = props.lockRoom;
 	const selectPick = props.selectPick;
 
-	const currentTurn = room.currentTurn;
-
 	return (
 		<Container fluid style={{ padding: '1em' }}>
 			<Row>

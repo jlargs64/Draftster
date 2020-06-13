@@ -34,10 +34,14 @@ export default function Draft(props) {
 				</div>
 				{room.players.map((player, index) => (
 					<Card
-						className={`draft-square ${currentTurn === index ? 'active' : ''}`}
+						className={`draft-square ${currentTurn === index ? 'active' : ''} 
+						${room.disconnectedPlayers.includes(room.players[index]) ? 'inactive' : ''}`}
 						key={index}
 					>
 						<p style={{ fontSize: '1.5em', fontWeight: '500' }}>{player}</p>
+						{room.disconnectedPlayers.includes(room.players[index]) && (
+							<p>(disconnected)</p>
+						)}
 					</Card>
 				))}
 			</Row>
